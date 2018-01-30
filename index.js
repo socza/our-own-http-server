@@ -1,29 +1,31 @@
-var http = require('http');
 var fs = require('fs');
+var http = require('http');
 var server = http.createServer();
 
 server.on('request', function (request, response) {
-    response.setHeader("Content-Type", "text/html; charset=utf-8");
     
     if (request.method === 'GET' && request.url === '/') {
 
+    	response.setHeader("Content-Type", "text/html; charset=utf-8");
         fs.readFile('./index.html', function(err, data) {
 		
+			if (err) throw err;
 			response.write(data);
 			response.end();
 			
-			if (err) throw err;
 	
 		});
     
     } else {
 
-        fs.readFile('./404.html', function(err, data) {
+            
+		response.setHeader("Content-Type", "image/jpg");
+        fs.readFile('./404.jpg', function(err, data) {
 		
+			if (err) throw err;
 			response.write(data);
 			response.end();
 			
-			if (err) throw err;
 	
 		});
     
